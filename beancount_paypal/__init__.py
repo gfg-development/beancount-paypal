@@ -163,7 +163,7 @@ class PaypalImporter(importer.ImporterProtocol):
                     txn.postings.append(
                         data.Posting(
                             self.commission_account,
-                            amount.Amount(D(1 * row['fee']), row['currency']),
+                            amount.Amount(D(-1 * row['fee']), row['currency']),
                             None, None, None, None
                         )
                     )

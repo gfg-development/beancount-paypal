@@ -28,7 +28,8 @@ class PaypalImporter(importer.ImporterProtocol):
         checking_account,
         commission_account,
         language=None,
-        metadata_map=None
+        metadata_map=None,
+        templates=None
     ):
         if language is None:
             language = lang.en()
@@ -42,6 +43,7 @@ class PaypalImporter(importer.ImporterProtocol):
         self.commission_account = commission_account
         self.language = language
         self.metadata_map = metadata_map
+        self.templates = templates
 
     def file_account(self, _):
         return self.account
@@ -158,6 +160,18 @@ class PaypalImporter(importer.ImporterProtocol):
                             None, None, None, None
                         )
                     )
+
+                    if row.get('item_title') in self.templates:
+                        template = self.templates[row.get('item_title')]
+                        for account, eamount in template.items():
+                            print(account, eamount)
+                            txn.postings.append(
+                                data.Posting(
+                                    account,
+                                    amount.Amount(D(eamount), row["currency"]),
+                                    None, None, None, None
+                                )
+                            )
 
                 else:
                     txn.postings.append(

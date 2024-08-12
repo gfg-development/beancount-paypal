@@ -9,6 +9,9 @@ class base():
 
     def txn_currency_conversion(self, data):
         return data == self._currency_conversion
+    
+    def txn_payment_to_me(self, data):
+        return data == self._payment_to_me
 
     def decimal(self, data):
         return data
@@ -53,6 +56,7 @@ class en(base):
     _format = "%d/%m/%Y"
     _from_checking = "Bank Deposit to PP Account "
     _currency_conversion = "General Currency Conversion"
+    _payment_to_me = ""
 
     def decimal(self, data):
         return data.replace(".", "").replace(",", ".")
@@ -91,6 +95,7 @@ class de(base):
     _format = "%d.%m.%Y"
     _from_checking = "Bankgutschrift auf PayPal-Konto"
     _currency_conversion = "Allgemeine Währungsumrechnung"
+    _payment_to_me = "Website-Zahlung"
 
     def decimal(self, data):
         return data.replace(".", "").replace(",", ".")

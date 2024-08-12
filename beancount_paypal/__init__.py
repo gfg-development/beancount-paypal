@@ -164,7 +164,6 @@ class PaypalImporter(importer.ImporterProtocol):
                     if row.get('item_title') in self.templates:
                         template = self.templates[row.get('item_title')]
                         for account, eamount in template.items():
-                            print(account, eamount)
                             txn.postings.append(
                                 data.Posting(
                                     account,
